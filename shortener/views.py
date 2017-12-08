@@ -12,16 +12,31 @@ class HomeView(View):
             'title': 'Submit URL',
             'form': form
         }
+
         return render(request, 'shortener/home.html', context)
 
     def post(self, request, *args, **kwargs):
         form = SubmitUrlForm(request.POST)
-        if form.is_valid():
-            pass
+
         context = {
+            'title': 'Bytely.co',
             'form': form
         }
-        return render(request, 'shortener/home.html', context)
+
+        template = 'shortener/home.html'
+        if form.is_valid():
+            url = form.cleaned_data.get('url')
+            obj, created = BytelyURL.objects.get_or_create(url=url)
+            context = {
+                'object': obj,
+                'created': created
+            }
+            if created:
+                template = 'shortener/success.html'
+            else:
+                template = 'shortener/already-exists.html'
+
+        return render(request, template, context=context)
 
 
 class BytelyRedirectView(View):

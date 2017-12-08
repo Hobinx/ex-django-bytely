@@ -28,7 +28,7 @@ class BytelyURLManager(models.Manager):
 
 class BytelyURL(models.Model):
     url = models.CharField(max_length=220, validators=[validate_url])
-    shortcode = models.CharField(max_length=SHORTCODE_MAX, default='abc',
+    shortcode = models.CharField(max_length=SHORTCODE_MAX,
                                  unique=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
