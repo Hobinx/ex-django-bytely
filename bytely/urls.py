@@ -14,8 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
+from shortener.views import BytelyRedirectView, HomeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', HomeView.as_view()),
+    re_path('^b/(?P<shortcode>[\w-]{6,15})/$', BytelyRedirectView.as_view())
 ]

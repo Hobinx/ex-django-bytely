@@ -25,7 +25,8 @@ SECRET_KEY = '-c35o!2ive-m1x_ut-vymze=u81@zm1#)tjdr^zd36g^p#6l$_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.bytely.com', 'blog.bytely.com',
+                 'api.bytely.com', 'localhost']
 
 
 # Application definition
@@ -37,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_hosts',
     'shortener'
 ]
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -48,9 +51,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware'
 ]
 
 ROOT_URLCONF = 'bytely.urls'
+ROOT_HOSTCONF = 'bytely.hosts'
+DEFAULT_HOST = 'www'
+DEFAULT_REDIRECT_URL = 'http://www.bytely.com:8000'
 
 TEMPLATES = [
     {
@@ -119,3 +126,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+SHORTCODE_MAX = 15
+SHORTCODE_MIN = 6
