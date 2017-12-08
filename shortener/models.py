@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 from .utils import create_shortcode
-
+from .validators import validate_url
 
 SHORTCODE_MAX = getattr(settings, "SHORTCODE_MAX", 15)
 
@@ -27,7 +27,7 @@ class BytelyURLManager(models.Manager):
 
 
 class BytelyURL(models.Model):
-    url = models.CharField(max_length=220)
+    url = models.CharField(max_length=220, validators=[validate_url])
     shortcode = models.CharField(max_length=SHORTCODE_MAX, default='abc',
                                  unique=True, blank=True)
     updated = models.DateTimeField(auto_now=True)

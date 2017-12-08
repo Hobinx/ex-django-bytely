@@ -19,6 +19,6 @@ from shortener.views import BytelyRedirectView, HomeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', HomeView.as_view()),
+    re_path('', HomeView.as_view()),
     re_path('^b/(?P<shortcode>[\w-]{6,15})/$', BytelyRedirectView.as_view())
 ]
