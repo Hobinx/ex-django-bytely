@@ -12,7 +12,7 @@ class HomeView(View):
         print('get in home')
         form = SubmitUrlForm()
         context = {
-            'title': 'Submit URL',
+            'title': 'Bytely',
             'form': form
         }
 
