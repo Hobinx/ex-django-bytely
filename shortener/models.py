@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django_hosts.resolvers import reverse
 from .utils import create_shortcode
 from .validators import validate_url
 
@@ -41,6 +42,12 @@ class BytelyURL(models.Model):
         if self.shortcode is None or self.shortcode == '':
             self.shortcode = create_shortcode(self)
         super(BytelyURL, self).save(*args, **kwargs)
+
+    def get_short_url(self):
+        url_path = reverse('shortcode', host='www',
+                           scheme='http',
+                           kwargs={'shortcode': self.shortcode})
+        return url_path
 
     def __str__(self):
         return str(self.url)

@@ -1,12 +1,15 @@
 from django.http import HttpResponseRedirect
 from django.views import View
 from django.shortcuts import get_object_or_404, render
+from analytics.models import ClickEvent
 from .models import BytelyURL
 from .forms import SubmitUrlForm
+from .utils import absolute_location
 
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
+        print('get in home')
         form = SubmitUrlForm()
         context = {
             'title': 'Submit URL',
@@ -16,6 +19,7 @@ class HomeView(View):
         return render(request, 'shortener/home.html', context)
 
     def post(self, request, *args, **kwargs):
+        print('post in home')
         form = SubmitUrlForm(request.POST)
 
         context = {
@@ -42,5 +46,7 @@ class HomeView(View):
 class BytelyRedirectView(View):
 
     def get(self, request, shortcode=None, *args, **kwargs):
+        print('get in redirect')
         obj = get_object_or_404(BytelyURL, shortcode=shortcode)
-        return HttpResponseRedirect(obj.url)
+        ClickEvent.objects.create_event(obj)
+        return HttpResponseRedirect(absolute_location(obj.url))

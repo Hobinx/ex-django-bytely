@@ -1,5 +1,6 @@
 import random
 import string
+import re
 from django.conf import settings
 
 
@@ -18,3 +19,12 @@ def create_shortcode(instance, size=SHORTCODE_MIN):
     if existed:
         return create_shortcode(size=size)
     return new_code
+
+
+_http_prefix = re.compile(r'https?')
+
+
+def absolute_location(url):
+    if not _http_prefix.match(url):
+        return f'http://{url}'
+    return url

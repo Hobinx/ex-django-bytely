@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_hosts',
+    'analytics',
     'shortener'
 ]
 
@@ -58,6 +59,7 @@ ROOT_URLCONF = 'bytely.urls'
 ROOT_HOSTCONF = 'bytely.hosts'
 DEFAULT_HOST = 'www'
 DEFAULT_REDIRECT_URL = 'http://www.bytely.com:8000'
+PARENT_HOST = 'bytely.com:8000'
 
 TEMPLATES = [
     {
