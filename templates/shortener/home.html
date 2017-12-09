@@ -1,10 +1,15 @@
-<div>
-  <h1>{{ title }}</h1>
+{% extends "base.html" %}
 
-  <form action="" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Shorten">
-  </form>
+{% block content %}
+<h1 class="cover-heading">{{ title }}</h1>
 
-</div>
+<p class="lead">
+  <div class="col-sm-6 col-sm-offset-3">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Shorten" class="btn btn-primary">
+    </form>
+  </div>
+</p>
+{% endblock content %}

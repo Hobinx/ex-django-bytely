@@ -1,4 +1,12 @@
-<h1>Created!</h1>
-<p>{{ object.url }}</p>
+{% extends "base.html" %}
 
-<p><a href="{{ object.get_short_url }}">{{ object.get_short_url }}</a></p>
+{% block content %}
+<div class="well">
+  <h1>Created!</h1>
+  <p>{{ object.url }}</p>
+
+  <p><a href="{{ object.get_short_url }}">{{ object.get_short_url }}</a></p>
+  {% load hosts %}
+  <a href="{% host_url 'home' host 'www' %}" class="btn btn-default">+ New</a>
+</div>
+{% endblock content %}

@@ -1,4 +1,12 @@
-<h1>Exists!</h1>
-<p>{{ object.url }}</p>
-<p>Count {{ object.clickevent.count }} </p>
-<p><a href="{{ object.get_short_url }}">{{ object.get_short_url }}</a></p>
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+  <h1>Already Exsits!</h1>
+  <p>{{ object.url }}</p>
+
+  <p><a href="{{ object.get_short_url }}">{{ object.get_short_url }}</a></p>
+  {% load hosts %}
+  <a href="{% host_url 'home' host 'www' %}" class="btn btn-default">+ New</a>
+</div>
+{% endblock content %}
